@@ -1,0 +1,108 @@
+from room import Room
+from guest import Guest
+from booking import Booking
+from payment import Payment
+from loyalty_program import LoyaltyProgram
+from hotel_services import HotelServices
+
+
+# 1️ Guest Account Creation
+def test_guest_creation():
+   print("\n--- Test 1: Guest Account Creation ---")
+   guest1 = Guest("Meera", "meera@outlook.com")
+   guest2 = Guest("Reem", "reem@gmail.com", "Gold")
+   print("Guest 1 Info:", guest1)
+   print("Guest 2 Info:", guest2)
+
+
+# 2️ Searching for Available Rooms
+def test_room_availability():
+   print("\n--- Test 2: Searching for Available Rooms ---")
+   room1 = Room(101, "Single", ["WiFi", "TV"], 100.0)
+   room2 = Room(102, "Double", ["WiFi", "Mini-Bar"], 150.0)
+   room2.book_room()  # Make one room unavailable
+   print("Room 1:", room1)
+   print("Room 2:", room2)
+
+
+# 3️ Making a Room Reservation
+def test_make_booking():
+   print("\n--- Test 3: Making a Room Reservation ---")
+   guest = Guest("Noura", "noura@outlook.com")
+   room = Room(201, "Suite", ["WiFi", "Jacuzzi"], 300.0)
+   booking1 = Booking(1, guest, room, "2025-04-01", "2025-04-05")
+   booking2 = Booking(2, guest, room, "2025-04-06", "2025-04-10")
+   print("Booking 1:", booking1)
+   print("Booking 2:", booking2)
+
+
+# 4️ Booking Confirmation Notification
+def test_booking_status():
+   print("\n--- Test 4: Booking Confirmation ---")
+   guest = Guest("Omar", "omar@gmail.com")
+   room = Room(301, "Single", ["WiFi"], 90.0)
+   booking = Booking(3, guest, room, "2025-05-01", "2025-05-03")
+   print("Booking Status:", booking.get_status())
+   print("Booking Details:", booking)
+
+
+# 5️ Invoice Generation for a Booking
+def test_payment_processing():
+   print("\n--- Test 5: Invoice Generation ---")
+   guest = Guest("Hessa", "hessa@hotmail.com")
+   room = Room(401, "Double", ["WiFi", "Mini-Bar"], 120.0)
+   booking = Booking(4, guest, room, "2025-06-01", "2025-06-03")
+   payment = Payment(1, booking, 240.0, "Credit Card")
+   print("Payment Details:", payment)
+   payment2 = Payment(2, booking, 200.0, "Mobile Wallet")
+   print("Discounted Payment:", payment2)
+
+
+# 6️ Processing Different Payment Methods
+def test_multiple_payments():
+   print("\n--- Test 6: Multiple Payment Methods ---")
+   guest = Guest("Mohammed", "mohammed@hotmail.com")
+   room = Room(501, "Suite", ["WiFi", "TV"], 400.0)
+   booking = Booking(5, guest, room, "2025-07-01", "2025-07-02")
+   payment1 = Payment(3, booking, 400.0, "Credit Card")
+   payment2 = Payment(4, booking, 400.0, "Apple Pay")
+   print(payment1)
+   print(payment2)
+
+
+# 7️ Displaying Reservation History
+def test_reservation_history():
+   print("\n--- Test 7: Reservation History ---")
+   guest = Guest("Shaikha", "Shaikha@outlook.com")
+   room = Room(601, "Single", ["WiFi"], 100.0)
+   booking1 = Booking(6, guest, room, "2025-08-01", "2025-08-03")
+   booking2 = Booking(7, guest, room, "2025-08-10", "2025-08-12")
+   guest.add_reservation(booking1)
+   guest.add_reservation(booking2)
+   print("Reservation History for", guest.get_name())
+   for booking in guest.get_reservations():
+       print(booking)
+
+
+# 8️ Cancellation of a Reservation
+def test_cancel_booking():
+   print("\n--- Test 8: Cancel a Reservation ---")
+   guest = Guest("Maryam", "maryam@gmail.com")
+   room = Room(701, "Double", ["TV", "WiFi"], 180.0)
+   booking = Booking(8, guest, room, "2025-09-01", "2025-09-05")
+   print("Before Cancel:", booking)
+   booking.cancel_booking()
+   print("After Cancel:", booking)
+   print("Room Availability:", "Available" if room.is_available() else "Not Available")
+
+
+# Run all test functions
+if __name__ == "__main__":
+   test_guest_creation()
+   test_room_availability()
+   test_make_booking()
+   test_booking_status()
+   test_payment_processing()
+   test_multiple_payments()
+   test_reservation_history()
+   test_cancel_booking()
